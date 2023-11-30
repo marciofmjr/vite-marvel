@@ -1,7 +1,17 @@
+import { BrowserRouter, Routes, Route  } from "react-router-dom";
+
+import Home from "./pages/Home";
+import Hero from "./pages/Hero";
+
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline text-center">Tailwind Works</h1>
+      <BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Home />}></Route>
+					<Route path="/hero" element={<Hero />}></Route>
+				</Routes>
+			</BrowserRouter>
     </>
   )
 }
