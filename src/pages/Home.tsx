@@ -1,10 +1,12 @@
-import Menu from "../components/Menu"
+// import Menu from "../components/Menu"
+import SearchBar from "../components/SearchBar"
+
 
 function Home() {
 	return (
 		<>
-			<Menu/>
-			<h1>HOME</h1>
+			<h1 className="text-6xl font-bold text-center">Marvel Wiki</h1>
+			<SearchBar />
 		</>
 	)
 }
