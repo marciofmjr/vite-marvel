@@ -1,12 +1,14 @@
 // import Menu from "../components/Menu"
 import SearchBar from "../components/SearchBar"
-
+import MainTitle from "../components/MainTitle"
+import Cards from "../components/Cards"
 
 function Home() {
 	return (
 		<>
-			<h1 className="text-6xl font-bold text-center">Marvel Wiki</h1>
+			<MainTitle />
 			<SearchBar />
+			<Cards/>
 		</>
 	)
 }
