@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import axios from "axios";
 import md5 from 'md5';
 import { useEffect, useState } from "react";
@@ -29,12 +30,22 @@ const hash = md5(ts + privateKey + publicKey);
 
 const limit = 100;
 
-export default function Cards() {
+export default function Cards({ search }: {search: string}) {
 	const [characters, setCharacters] = useState<Character[]>([]);
 	const [loading, setLoading] = useState(false);
 	const [percent, setPercent] = useState(0);
 
 	let allCharacters: Character[] = [];
+
+	const searchCharacter = (name: string) => {
+		name = name.toLowerCase().replace(/[^a-zA-Z ]/g, "").replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '').trim();
+
+		if (search?.length) {
+			const match = search.toLowerCase().replace(/[^a-zA-Z ]/g, "").replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '').trim();
+			return name.includes(match);
+		}
+		return true;
+	}
 
 	const getCharacters = async (page: number) => {
 		const offset = page * limit;
@@ -99,7 +110,8 @@ export default function Cards() {
 			{ !loading &&
 				<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
 					{ characters && characters.map(char => (
-							<Card id={char.id} key={char.id} name={char.name} image={`${char.thumbnail.path}.${char.thumbnail.extension}`} />
+							searchCharacter(char.name) &&
+							<Card id={char.id} key={char.id} name={char.name} image={`${char.thumbnail.path}.${char.thumbnail.extension}`} url={char.urls[0].url} />
 						))
 					}
 				</div>
